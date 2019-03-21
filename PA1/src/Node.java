@@ -15,6 +15,9 @@ public class Node {
 	Node leftChild;
 	Node rightChild;
 	int color;
+	private Endpoint key;
+	private int p;
+	
 	public Node() {
 		
 	}
@@ -28,7 +31,7 @@ public class Node {
 		return this.rightChild;
 	}
 	public int getKey() {
-		return 0;
+		return key.getValue();
 	}
 	public int getP() {
 		return 0;
@@ -37,7 +40,7 @@ public class Node {
 		return 0;
 	}
 	public int getMaxVal() {
-		return 0;
+		return ;
 	}
 	public Endpoint getEndpoint() {
 		return null;
