@@ -20,6 +20,7 @@ public class Intervals {
 //	•int findPOM(): Finds the endpoint that has maximum overlap and returns its value. Thismethod should run in constant time.
 //	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
+	private RBTree tree;
 	
 	public Intervals() {
 		
@@ -34,6 +35,6 @@ public class Intervals {
 		return 0;
 	}
 	public RBTree getRBTree() {
-		return null;
+		return tree;
 	}
 }

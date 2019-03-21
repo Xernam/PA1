@@ -40,7 +40,7 @@ public class Node {
 		return 0;
 	}
 	public int getMaxVal() {
-		return ;
+		return 0;
 	}
 	public Endpoint getEndpoint() {
 		return null;
