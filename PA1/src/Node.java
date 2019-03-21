@@ -43,7 +43,7 @@ public class Node {
 		return 0;
 	}
 	public Endpoint getEndpoint() {
-		return null;
+		return key;
 	}
 	public Endpoint getEmax() {
 		return null;
