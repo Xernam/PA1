@@ -34,7 +34,7 @@ public class Node {
 		return key.getValue();
 	}
 	public int getP() {
-		return 0;
+		return p;
 	}
 	public int getVal() {
 		return 0;

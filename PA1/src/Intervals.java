@@ -26,7 +26,10 @@ public class Intervals {
 		
 	}
 	public void intervalInsert(int a, int b) {
-		
+		//doing some commenting since I am going to go swimming.
+		//If left is less than right, invalid format
+		//new node, key is a or b, p value is -1 for a, +1 for b.
+		//Endpoint has value of a or b
 	}
 	public boolean intervalDelete(int intervalID) {
 		return false;
