@@ -50,11 +50,11 @@ public class Node {
 	
 	private int getValHelper(int sum, Node current) {
 		 if(this.getLeft() != null) {
-			 sum = sum + getvalhelper(sum, this.getLeft())
+			 sum = sum + getValHelper(sum, this.getLeft());
 		 }
 		 
 		 if(this.getRight() != null) {
-			 sum = sum + getvalhelper(sum, this.getRight())
+			 sum = sum + getValHelper(sum, this.getRight());
 		 }
 		 
 		 return sum;
