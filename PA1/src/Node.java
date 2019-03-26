@@ -53,6 +53,10 @@ public class Node {
 		return p;
 	}
 	
+	public void setP(int pval) {
+		p = pval;
+	}
+	
 	//I think this is a valid solution to the problem. Definetly not the most 
 	// effecient way to do it, but I think it's right. 
 	public int getVal() {
@@ -87,6 +91,7 @@ public class Node {
 	public int getColor() {
 		return this.color;
 	}
+
 	
 	public void updateMaxVal() {
 		maxval = Math.max(this.getLeft().getMaxVal(), this.getLeft().getP() + this.getLeft().getVal());

@@ -33,6 +33,7 @@ public class Intervals {
 		if(root == null) {
 			Node left = new Node(ID, new Endpoint(a));
 			root = left;
+			root.setP(1);
 			Node right = new Node(ID, new Endpoint(b));
 			right.color = 1;
 			root.leftChild = right;
@@ -41,6 +42,7 @@ public class Intervals {
 			right.leftChild = NIL;
 			right.rightChild = NIL;
 			right.parent = root;
+			right.setP(-1);
 		}
 		//doing some commenting since I am going to go swimming.
 		//If left is less than right, invalid format
