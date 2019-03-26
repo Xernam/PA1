@@ -57,4 +57,36 @@ public class Intervals {
 	public RBTree getRBTree() {
 		return tree;
 	}
+	
+	private void leftRotate(Node node) {
+		Node temp = node.leftChild;
+		node.rightChild = temp.leftChild;
+		if(temp.leftChild == null)
+			temp.leftChild.parent = node;
+		temp.parent = node.parent;
+		if(node.parent == null)
+			root = temp;
+		else if(node == node.parent.leftChild)
+			node.parent.leftChild = temp;
+		else
+			node.parent.rightChild = temp;
+		temp.leftChild = node;
+		node.parent = temp;
+	}
+	
+	private void rightRotate(Node node) {
+		Node temp = node.rightChild;
+		node.leftChild = temp.rightChild;
+		if(temp.rightChild == null)
+			temp.rightChild.parent = node;
+		temp.parent = node.parent;
+		if(node.parent == null)
+			root = temp;
+		else if(node == node.parent.rightChild)
+			node.parent.rightChild = temp;
+		else
+			node.parent.rightChild = temp;
+		temp.leftChild = node;
+		node.parent = temp;
+	}
 }
