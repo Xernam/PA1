@@ -21,15 +21,32 @@ public class Intervals {
 //	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
 	private RBTree tree;
+	private Node root;
+	private Node NIL;
+	private int ID;
 	
 	public Intervals() {
-		
+		root = tree.getRoot();
+		NIL = tree.getNILNode();
 	}
 	public void intervalInsert(int a, int b) {
+		if(root == null) {
+			Node left = new Node(ID, new Endpoint(a));
+			root = left;
+			Node right = new Node(ID, new Endpoint(b));
+			right.color = 1;
+			root.leftChild = right;
+			root.parent = NIL;
+			root.rightChild = NIL;
+			right.leftChild = NIL;
+			right.rightChild = NIL;
+			right.parent = root;
+		}
 		//doing some commenting since I am going to go swimming.
 		//If left is less than right, invalid format
 		//new node, key is a or b, p value is -1 for a, +1 for b.
 		//Endpoint has value of a or b
+		ID++;
 	}
 	public boolean intervalDelete(int intervalID) {
 		return false;

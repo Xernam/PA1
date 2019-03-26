@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 
 public class Node {
 //	Node getParent(): Returns the parent of this node.
@@ -18,10 +20,22 @@ public class Node {
 	private Endpoint key;
 	private int p;
 	private int val;
+	private int maxval;
+	private int emax;
+	private int ID;
 	
 	
-	public Node() {
-		
+	public Node(int ID, Endpoint temp) {
+		parent = null;
+		leftChild = null;
+		rightChild = null;
+		color = 0;
+		temp = key;
+		p = 0;
+		val = 0;
+		maxval = 0;
+		emax = 0;
+		ID = ID;
 	}
 	public Node getParent() {
 		return this.parent;
@@ -61,7 +75,8 @@ public class Node {
 	}
 	
 	public int getMaxVal() {
-		return 0;
+		updateMaxVal();
+		return maxval;
 	}
 	public Endpoint getEndpoint() {
 		return key;
@@ -71,5 +86,10 @@ public class Node {
 	}
 	public int getColor() {
 		return this.color;
+	}
+	
+	public void updateMaxVal() {
+		maxval = Math.max(this.getLeft().getMaxVal(), this.getLeft().getP() + this.getLeft().getVal());
+		maxval = Math.max(maxval, this.getLeft().getVal() + this.getP() + this.getRight().getMaxVal());
 	}
 }
