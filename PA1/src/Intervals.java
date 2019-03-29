@@ -85,8 +85,10 @@ public class Intervals {
 		}
 		node.parent = y;
 		if(y == tree.getNILNode()) {
-			Node temp = tree.getRoot();
-			temp = node;
+			tree.setRoot(node);
+			node.leftChild = tree.getNILNode();
+			node.rightChild = tree.getNILNode();
+			node.parent = tree.getNILNode();
 		}
 		else if(node.getKey() < y.getKey())
 			y.leftChild = node;

@@ -31,4 +31,9 @@ public class RBTree {
 		return height;
 	}
 	
+	public void setRoot(Node node) {
+		if (root.equals(NIL))
+			root = node;
+	}
+	
 }
