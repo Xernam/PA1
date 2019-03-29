@@ -58,26 +58,16 @@ public class Node {
 		p = pval;
 	}
 	
+	public void setVal(int value) {
+		val = value;
+	}
+	
 	//I think this is a valid solution to the problem. Definetly not the most 
 	// effecient way to do it, but I think it's right. Logan: Moving to insert
 	public int getVal() {
-		val = 0;
-		val = getValHelper(val, this);
-		
 		return val;
 	}
 	
-	private int getValHelper(int sum, Node current) {
-		 if(this.getLeft() != null) {
-			 sum = sum + getValHelper(sum, this.getLeft());
-		 }
-		 
-		 if(this.getRight() != null) {
-			 sum = sum + getValHelper(sum, this.getRight());
-		 }
-		 
-		 return sum;
-	}
 	
 	public int getMaxVal() {
 		//updateMaxVal(); // move to insert.

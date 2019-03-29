@@ -54,8 +54,22 @@ public class Intervals {
 		return tree;
 	}
 	
-	private void updateAllFields() {
-
+	private void updateFields(Node node) {
+		node.setVal(getValHelper(node.getVal(), node));
+		node.updateMaxVal();
+		
+	}
+	
+	private int getValHelper(int sum, Node current) {
+		 if(current.getLeft() != null) {
+			 sum = sum + getValHelper(sum, current.getLeft());
+		 }
+		 
+		 if(current.getRight() != null) {
+			 sum = sum + getValHelper(sum, current.getRight());
+		 }
+		 
+		 return sum;
 	}
 	
 	private void insertHelper(Node node) {
@@ -82,6 +96,7 @@ public class Intervals {
 		node.rightChild = tree.getNILNode();
 		node.color = 0;
 		insertFixup(node);
+		updateFields(node);
 	}
 	
 	private void insertFixup(Node node) {
