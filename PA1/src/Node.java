@@ -23,19 +23,20 @@ public class Node {
 	private int maxval;
 	private int emax;
 	private int ID;
+	private int size;
 	
 	
-	public Node(int ID, Endpoint temp) {
+	public Node(int Id, Endpoint temp) {
 		parent = null;
 		leftChild = null;
 		rightChild = null;
 		color = 0;
-		temp = key;
+		key = temp;
 		p = 0;
 		val = 0;
 		maxval = 0;
 		emax = 0;
-		ID = ID;
+		ID = Id;
 	}
 	public Node getParent() {
 		return this.parent;
@@ -90,6 +91,10 @@ public class Node {
 	}
 	public int getColor() {
 		return this.color;
+	}
+	
+	public int getSize() {
+		return this.size;
 	}
 
 	

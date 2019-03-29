@@ -21,16 +21,16 @@ public class Intervals {
 //	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
 	private RBTree tree;
-	private Node root;
-	private Node NIL;
 	private int ID;
 	
 	public Intervals() {
-		root = tree.getRoot();
-		NIL = tree.getNILNode();
+		tree = new RBTree();
 	}
+	
 	public void intervalInsert(int a, int b) {
-		if(root == null) {
+		Node root = tree.getRoot();
+		Node NIL = tree.getNILNode();
+		if(root == NIL) {
 			Node left = new Node(ID, new Endpoint(a));
 			root = left;
 			root.setP(1);
@@ -61,6 +61,7 @@ public class Intervals {
 	}
 	
 	private void leftRotate(Node node) {
+		Node root = tree.getRoot();
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
 		if(temp.leftChild == null)
@@ -77,6 +78,7 @@ public class Intervals {
 	}
 	
 	private void rightRotate(Node node) {
+		Node root = tree.getRoot();
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;
 		if(temp.rightChild == null)
