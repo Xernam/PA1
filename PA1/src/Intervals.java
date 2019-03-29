@@ -33,32 +33,13 @@ public class Intervals {
 			a = b;
 			b = temp;
 		}
-		Node x = tree.getRoot();
-		Node y = tree.getNILNode();
 		Node newNodeA = new Node(ID, new Endpoint(a));
 		newNodeA.setP(1);
 		Node newNodeB = new Node(ID, new Endpoint(b));
 		newNodeB.setP(-1);
-		while(x != tree.getNILNode()) {
-			y = x;
-			if(newNodeA.getKey() < x.getKey())
-				x = x.getLeft();
-			else
-				x = x.getRight();
-		}
-		newNodeA.parent = y;
-		if(y == tree.getNILNode()) {
-			Node temp = tree.getRoot();
-			temp = newNodeA;
-		}
-		else if(newNodeA.getKey() < y.getKey())
-			y.leftChild = newNodeA;
-		else
-			y.rightChild = newNodeA;
-		newNodeA.leftChild = tree.getNILNode();
-		newNodeA.rightChild = tree.getNILNode();
-		newNodeA.color = 0;
-		insertFixup(newNodeA);
+		insertHelper(newNodeA);
+		insertHelper(newNodeB);
+		
 		
 		ID++;
 	}
@@ -71,6 +52,36 @@ public class Intervals {
 	
 	public RBTree getRBTree() {
 		return tree;
+	}
+	
+	private void updateAllFields() {
+
+	}
+	
+	private void insertHelper(Node node) {
+		Node x = tree.getRoot();
+		Node y = tree.getNILNode();
+		
+		while(x != tree.getNILNode()) {
+			y = x;
+			if(node.getKey() < x.getKey())
+				x = x.getLeft();
+			else
+				x = x.getRight();
+		}
+		node.parent = y;
+		if(y == tree.getNILNode()) {
+			Node temp = tree.getRoot();
+			temp = node;
+		}
+		else if(node.getKey() < y.getKey())
+			y.leftChild = node;
+		else
+			y.rightChild = node;
+		node.leftChild = tree.getNILNode();
+		node.rightChild = tree.getNILNode();
+		node.color = 0;
+		insertFixup(node);
 	}
 	
 	private void insertFixup(Node node) {
@@ -95,7 +106,22 @@ public class Intervals {
 				}
 			}
 			else {
-				
+				temp = node.parent.parent.leftChild;
+				if(temp.color == 1) {
+					node.parent.color = 0;
+					temp.color = 0;
+					node.parent.parent.color = 1;
+					node = node.parent.parent;
+				}
+				else {
+					if(node.equals(node.parent.leftChild)) {
+						node = node.parent;
+						rightRotate(node);
+					}
+					node.parent.color = 0;
+					node.parent.parent.color = 1;
+					leftRotate(node.parent.parent);
+				}
 			}		
 		}
 		tree.getRoot().color = 0;
