@@ -54,8 +54,9 @@ public class Intervals {
 		return false;
 	}
 	public int findPOM() {
-		return 0;
+		return tree.getRoot().getKey();
 	}
+	
 	public RBTree getRBTree() {
 		return tree;
 	}
