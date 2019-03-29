@@ -70,7 +70,6 @@ public class Node {
 	
 	
 	public int getMaxVal() {
-		//updateMaxVal(); // move to insert.
 		return maxval;
 	}
 	public Endpoint getEndpoint() {
@@ -91,7 +90,7 @@ public class Node {
 		return this.ID;
 	}
 
-	//move to insert
+	//move to insert, make it recursive
 	public void updateMaxVal() {
 		maxval = Math.max(this.getLeft().getMaxVal(), this.getLeft().getP() + this.getLeft().getVal());
 		maxval = Math.max(maxval, this.getLeft().getVal() + this.getP() + this.getRight().getMaxVal());
