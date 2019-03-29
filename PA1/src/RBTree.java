@@ -9,13 +9,13 @@ public class RBTree {
 //	•int getSize(): Returns the number of internal nodes in the tree.
 //	•int getHeight(): Returns the height of the tree.
 	
-	private Node root;
-	private Node NIL;
+	public Node root;
+	public Node NIL;
 	private int size;
 	private int height;
 	
 	public RBTree() {
-		NIL = new Node(0, new Endpoint(0));
+		NIL = new Node(0, null);
 		root = NIL;
 	}
 	public Node getRoot() {
@@ -29,6 +29,23 @@ public class RBTree {
 	}
 	public int getHeight() {
 		return height;
+	}
+	
+	public void incrementSize() {
+		size = size + 2;
+	}
+	
+	public void decrementSize() {
+		size = size - 2;
+	}
+	
+	/**
+	 * sets root if root is equal to NIL, otherwise does nothing
+	 * @param node - node to assign root to
+	 */
+	public void setRoot(Node node) {
+		if (root.equals(NIL))
+			root = node;
 	}
 	
 }
