@@ -91,10 +91,54 @@ public class Node {
 	}
 
 	//move to insert, make it recursive
-	public void updateMaxVal() {
-		maxval = Math.max(this.getLeft().getMaxVal(), this.getLeft().getP() + this.getLeft().getVal());
-		maxval = Math.max(maxval, this.getLeft().getVal() + this.getP() + this.getRight().getMaxVal());
+	public int updateMaxVal() {
+		if(this.ID==0) {
+			this.setP(0);
+		}
+		else {
+			this.setP(Math.max(Math.max(this.leftChild.updateMaxVal(), this.leftChild.updateMaxVal() + this.getP()), 
+					this.leftChild.updateMaxVal() + this.getP() + this.rightChild.updateMaxVal()));
+		}
+		updateMaxValParent();
+		return this.getP();
 	}
+	
+	
+	//Given a node with an updated maxval, recursively updates the parent nodes' maxval
+	public void updateMaxValParent() {
+		//Base case
+		if(this.getParent()==null) {
+
+		}
+		//Node is a leftChild
+		else if(this.parent.rightChild.equals(this)) {
+			this.getParent().setP
+			(Math.max(
+					Math.max(this.getMaxVal(), 
+					this.getMaxVal() + this.getParent().getP()), 
+					this.getMaxVal() + this.getParent().getP() + this.getParent().getRight().getMaxVal()));
+		}
+		//Node is RightChild
+		else {
+			this.getParent().setP
+			(Math.max(
+					Math.max(this.getParent().getLeft().getMaxVal(), 
+							this.getParent().getLeft().getMaxVal() + this.getParent().getP()), 
+							this.getParent().getLeft().getMaxVal() + this.getParent().getP() + this.getMaxVal()));
+		}
+		
+		//Recursive call
+		
+		//Parent of node is a right child
+		if(this.getParent().getParent().getRight().equals(this.getParent())) {
+			this.getParent().updateMaxValParent();
+		}
+		//Parent of node is a left child
+		else {
+			this.getParent().updateMaxValParent();
+		}
+	}
+	
 	
 	public boolean equals(Node b) {
 		if((this.getID() == b.getID()) && this.getKey() == b.getKey())

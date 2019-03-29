@@ -20,6 +20,15 @@ public class Intervals {
 //	•int findPOM(): Finds the endpoint that has maximum overlap and returns its value. Thismethod should run in constant time.
 //	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
+	
+	//Testing
+	//maxVal
+	//emax
+	//update height in log(n)
+	//update size in log(n)
+	//update emax in log(n)
+	
+	
 	private RBTree tree;
 	private int ID;
 	
@@ -57,9 +66,8 @@ public class Intervals {
 	private void updateFields(Node node) {
 		node.setVal(getValHelper(node.getVal(), node));
 		node.updateMaxVal();
-		
 	}
-	
+	// Should it be written as sum = 1 + ... instead?
 	private int getValHelper(int sum, Node current) {
 		 if(current.getLeft() != null) {
 			 sum = sum + getValHelper(sum, current.getLeft());
@@ -85,6 +93,7 @@ public class Intervals {
 		}
 		node.parent = y;
 		if(y == tree.getNILNode()) {
+			//Double assignment?
 			Node temp = tree.getRoot();
 			temp = node;
 		}
