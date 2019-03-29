@@ -15,7 +15,7 @@ public class RBTree {
 	private int height;
 	
 	public RBTree() {
-		NIL = new Node(0, null);
+		NIL = new Node(0, new Endpoint(0));
 		root = NIL;
 	}
 	public Node getRoot() {

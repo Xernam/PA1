@@ -28,37 +28,77 @@ public class Intervals {
 	}
 	
 	public void intervalInsert(int a, int b) {
-		Node root = tree.getRoot();
-		Node NIL = tree.getNILNode();
-		if(root == NIL) {
-			Node left = new Node(ID, new Endpoint(a));
-			root = left;
-			root.setP(1);
-			Node right = new Node(ID, new Endpoint(b));
-			right.color = 1;
-			root.leftChild = right;
-			root.parent = NIL;
-			root.rightChild = NIL;
-			right.leftChild = NIL;
-			right.rightChild = NIL;
-			right.parent = root;
-			right.setP(-1);
+		if(a < b) {
+			int temp = a;
+			a = b;
+			b = temp;
 		}
-		//doing some commenting since I am going to go swimming.
-		//If left is less than right, invalid format
-		//new node, key is a or b, p value is -1 for a, +1 for b.
-		//Endpoint has value of a or b
+		Node x = tree.getRoot();
+		Node y = tree.getNILNode();
+		Node newNodeA = new Node(ID, new Endpoint(a));
+		newNodeA.setP(1);
+		Node newNodeB = new Node(ID, new Endpoint(b));
+		newNodeB.setP(-1);
+		while(x != tree.getNILNode()) {
+			y = x;
+			if(newNodeA.getKey() < x.getKey())
+				x = x.getLeft();
+			else
+				x = x.getRight();
+		}
+		newNodeA.parent = y;
+		if(y == tree.getNILNode()) {
+			Node temp = tree.getRoot();
+			temp = newNodeA;
+		}
+		else if(newNodeA.getKey() < y.getKey())
+			y.leftChild = newNodeA;
+		else
+			y.rightChild = newNodeA;
+		newNodeA.leftChild = tree.getNILNode();
+		newNodeA.rightChild = tree.getNILNode();
+		newNodeA.color = 0;
+		insertFixup(newNodeA);
+		
 		ID++;
 	}
 	public boolean intervalDelete(int intervalID) {
 		return false;
 	}
 	public int findPOM() {
-		return tree.getRoot().getKey();
+		return tree.getRoot().getEmax().getValue();
 	}
 	
 	public RBTree getRBTree() {
 		return tree;
+	}
+	
+	private void insertFixup(Node node) {
+		Node temp;
+		while(node.parent.color == 1) {
+			if(node.parent.equals(node.parent.parent.leftChild)) {
+				temp = node.parent.parent.rightChild;
+				if(temp.color == 1) {
+					node.parent.color = 0;
+					temp.color = 0;
+					node.parent.parent.color = 1;
+					node = node.parent.parent;
+				}
+				else {
+					if(node.equals(node.parent.rightChild)) {
+						node = node.parent;
+						leftRotate(node);
+					}
+					node.parent.color = 0;
+					node.parent.parent.color = 1;
+					rightRotate(node.parent.parent);
+				}
+			}
+			else {
+				
+			}		
+		}
+		tree.getRoot().color = 0;
 	}
 	
 	private void leftRotate(Node node) {

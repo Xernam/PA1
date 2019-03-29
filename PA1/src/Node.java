@@ -21,7 +21,7 @@ public class Node {
 	private int p;
 	private int val;
 	private int maxval;
-	private int emax;
+	private Endpoint emax;
 	private int ID;
 	private int size;
 	
@@ -35,7 +35,7 @@ public class Node {
 		p = 0;
 		val = 0;
 		maxval = 0;
-		emax = 0;
+		emax = null;
 		ID = Id;
 	}
 	public Node getParent() {
@@ -59,7 +59,7 @@ public class Node {
 	}
 	
 	//I think this is a valid solution to the problem. Definetly not the most 
-	// effecient way to do it, but I think it's right. 
+	// effecient way to do it, but I think it's right. Logan: Moving to insert
 	public int getVal() {
 		val = 0;
 		val = getValHelper(val, this);
@@ -80,7 +80,7 @@ public class Node {
 	}
 	
 	public int getMaxVal() {
-		updateMaxVal();
+		//updateMaxVal(); // move to insert.
 		return maxval;
 	}
 	public Endpoint getEndpoint() {
@@ -96,10 +96,20 @@ public class Node {
 	public int getSize() {
 		return this.size;
 	}
-
 	
+	private int getID() {
+		return this.ID;
+	}
+
+	//move to insert
 	public void updateMaxVal() {
 		maxval = Math.max(this.getLeft().getMaxVal(), this.getLeft().getP() + this.getLeft().getVal());
 		maxval = Math.max(maxval, this.getLeft().getVal() + this.getP() + this.getRight().getMaxVal());
+	}
+	
+	public boolean equals(Node b) {
+		if((this.getID() == b.getID()) && this.getKey() == b.getKey())
+			return true;
+		return false;
 	}
 }
