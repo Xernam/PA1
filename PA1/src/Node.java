@@ -71,6 +71,10 @@ public class Node {
 	public int getMaxVal() {
 		return maxval;
 	}
+	
+	public void setMaxVal(int val) {
+		maxval = val;
+	}
 	public Endpoint getEndpoint() {
 		return key;
 	}
@@ -111,6 +115,7 @@ public class Node {
 	public void updateMaxValParent() {
 		//Base case
 		if(this.getParent().getP() == 0) {
+			return;
 		}
 		//Node is a leftChild
 		else if(this.parent.rightChild.equals(this)) {
@@ -142,7 +147,7 @@ public class Node {
 	}
 	
 	public boolean equals(Node b) {
-		if((this.getID() == b.getID()) && this.getKey() == b.getKey())
+		if((this.getID() == b.getID()) && this.getP() == b.getP())
 			return true;
 		return false;
 	}

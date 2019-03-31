@@ -87,10 +87,19 @@ public class Intervals {
 	 */
 	private void updateFields(Node node) {
 		node.setVal(getValHelper(node.getVal(), node));
-		node.updateMaxVal();
+		updateMaxVal(node);
+//		node.updateMaxVal();
 		calcEmax(node);
 		updateHeight(node);
 		
+	}
+	
+	private void updateMaxVal(Node node) {
+		node.setMaxVal(Math.max(Math.max(node.leftChild.getMaxVal(), node.leftChild.getMaxVal() + node.getP()), 
+				node.leftChild.getMaxVal() + node.getP() + node.rightChild.getMaxVal()));
+		
+		if(!node.parent.equals(tree.getNILNode()))
+			updateMaxVal(node.parent);
 	}
 	
 	private void updateHeight(Node node) {
