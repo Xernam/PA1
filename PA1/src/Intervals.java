@@ -68,7 +68,16 @@ public class Intervals {
 		node.setVal(getValHelper(node.getVal(), node));
 		node.updateMaxVal();
 		calcEmax(node);
+		updateHeight(node);
 		
+	}
+	
+	private void updateHeight(Node node) {
+		if(node.equals(tree.getNILNode()))
+			node.height = 0;
+		else
+			node.height = Math.max(node.rightChild.height + 1, node.leftChild.height + 1);
+		updateHeight(node.parent);
 	}
 	// Should it be written as sum = 1 + ... instead?
 	private int getValHelper(int sum, Node current) {
@@ -121,6 +130,24 @@ public class Intervals {
 		}
 		else if(node.getKey() < y.getKey())
 			y.leftChild = node;
+		else if(node.getKey() == y.getKey() && y.getP() != 1) {
+			if(y.parent.leftChild.equals(y)) {
+				node.parent = y.parent;
+				node.leftChild = y.leftChild;
+				node.rightChild = y;
+				node.parent.leftChild = node;
+				y.parent = node;
+				node = y;
+			}
+			else {
+				node.parent = y.parent;
+				node.leftChild = y.leftChild;
+				node.rightChild = y;
+				node.parent.rightChild = node;
+				y.parent = node;
+				node = y;
+			}
+		}
 		else
 			y.rightChild = node;
 		node.leftChild = tree.getNILNode();

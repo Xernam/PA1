@@ -28,7 +28,7 @@ public class RBTree {
 		return size;
 	}
 	public int getHeight() {
-		return height;
+		return root.height;
 	}
 	
 	public void incrementSize() {

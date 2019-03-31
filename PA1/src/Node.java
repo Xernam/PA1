@@ -24,6 +24,7 @@ public class Node {
 	private Endpoint emax;
 	private int ID;
 	private int size;
+	int height;
 	
 	
 	public Node(int Id, Endpoint temp) {
@@ -37,6 +38,7 @@ public class Node {
 		maxval = 0;
 		emax = null;
 		ID = Id;
+		height = 0;
 	}
 	public Node getParent() {
 		return this.parent;
@@ -87,7 +89,7 @@ public class Node {
 		return this.size;
 	}
 	
-	private int getID() {
+	public int getID() {
 		return this.ID;
 	}
 
@@ -139,7 +141,6 @@ public class Node {
 			this.getParent().updateMaxValParent();
 		}
 	}
-	
 	
 	public boolean equals(Node b) {
 		if((this.getID() == b.getID()) && this.getKey() == b.getKey())
