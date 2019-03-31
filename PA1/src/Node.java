@@ -2,17 +2,7 @@ import java.lang.Math;
 
 
 public class Node {
-//	Node getParent(): Returns the parent of this node.
-//	�Node getLeft(): Returns the left child.
-//	�Node getRight(): Returns the right child.
-//	�int getKey(): Returns the endpoint value, which is an integer.
-//	�int getP(): Returns the value of the function p based on this endpoint.
-//	�int getVal(): Returns the val of the node as described in this assignment.
-//	�int getMaxVal(): Returns the max val of the node as described in this assignment.
-//	�Endpoint getEndpoint(): Returns theEndpointobject that this node represents.
-//	�Endpoint getEmax(): Returns an Endpoint object that represents emax. 
-//	Calling this method on the root node will give theEndpointobject whose getValue() provides a point of maximum overlap.
-//	�int getColor(): Returns 0 if red. Returns 1 if black.
+
 	Node parent;
 	Node leftChild;
 	Node rightChild;
@@ -26,11 +16,14 @@ public class Node {
 	private int size;
 	int height;
 	
-	
+	/**
+	 * Constructor for the Node object
+	 * @param int id and Endpoint temp
+	 */
 	public Node(int Id, Endpoint temp) {
-		parent = this;
-		leftChild = this;
-		rightChild = this;
+		parent = null;
+		leftChild = null;
+		rightChild = null;
 		color = 0;
 		key = temp;
 		p = 0;
@@ -40,64 +33,139 @@ public class Node {
 		ID = Id;
 		height = 0;
 	}
+	
+	/**
+	 * Gets the parent
+	 * @return parent Node
+	 */
 	public Node getParent() {
 		return this.parent;
 	}
+	
+	/**
+	 * Gets left child
+	 * @return left child Node
+	 */
 	public Node getLeft() {
 		return this.leftChild;
 	}
+	
+	/**
+	 * Gets right child
+	 * @return right child Node
+	 */
 	public Node getRight() {
 		return this.rightChild;
 	}
+	
+	/**
+	 * Gets key
+	 * @return int key
+	 */
 	public int getKey() {
 		return key.getValue();
 	}
+	
+	/**
+	 * Gets P
+	 * @return int p
+	 */
 	public int getP() {
 		return p;
 	}
 	
+	/**
+	 * Sets P
+	 * @param pval int
+	 */
 	public void setP(int pval) {
 		p = pval;
 	}
 	
+	/**
+	 * Sets the value
+	 * @param int value
+	 */
 	public void setVal(int value) {
 		val = value;
 	}
 	
+	/**
+	 * Gets the value
+	 * @return int value
+	 */
 	public int getVal() {
 		return val;
 	}
 	
+	/**
+	 * get the maxVal
+	 * @return int max val
+	 */
 	public int getMaxVal() {
 		return maxval;
 	}
 	
+	/**
+	 * Sets the max val
+	 * @param int val
+	 */
 	public void setMaxVal(int val) {
 		maxval = val;
 	}
+	
+	/**
+	 * gets the endpoint
+	 * @return Endpoint 
+	 */
 	public Endpoint getEndpoint() {
 		return key;
 	}
+	
+	/**
+	 * gets the endpoint
+	 * @return Endpoint 
+	 */
 	public Endpoint getEmax() {
 		return emax;
 	}
+	
+	/*
+	 * Set max 
+	 * @param Endpoint object
+	 */
 	public void setEmax(Endpoint endpoint) {
 		emax = endpoint;
 	}
 	
+	/**
+	 * Gets color of node
+	 * @return int of color
+	 */
 	public int getColor() {
 		return this.color;
 	}
 	
+	/**
+	 * Gets the size 
+	 * @return int value of size
+	 */
 	public int getSize() {
 		return this.size;
 	}
 	
+	/**
+	 * gets the ID
+	 * @return gives the int value
+	 */
 	public int getID() {
 		return this.ID;
 	}
 
-	//move to insert, make it recursive
+	/**
+	 * Updates the max val
+	 * @return int of P
+	 */
 	public int updateMaxVal() {
 		if(this.ID==0) {
 			this.setP(0);
@@ -111,7 +179,10 @@ public class Node {
 	}
 	
 	
-	//Given a node with an updated maxval, recursively updates the parent nodes' maxval
+	/**
+	 * Recursively update max val of parent nodes 
+	 * 
+	 */
 	public void updateMaxValParent() {
 		//Base case
 		if(this.getParent().getP() == 0) {
@@ -146,6 +217,11 @@ public class Node {
 		}
 	}
 	
+	/**
+	 * Checks to see if nodes equal this node. Compares ID and P. 
+	 * @param Node to compare to
+	 * @return boolean 
+	 */
 	public boolean equals(Node b) {
 		if((this.getID() == b.getID()) && this.getP() == b.getP())
 			return true;

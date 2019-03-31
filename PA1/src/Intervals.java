@@ -1,7 +1,7 @@
 
 public class Intervals {
-//	•Intervals(): Constructor with no parameters.
-//	•void intervalInsert(int a, int b): Adds the interval with left endpoint a and right endpoint b to the collection of intervals. 
+//	Intervals(): Constructor with no parameters.
+//	void intervalInsert(int a, int b): Adds the interval with left endpoint a and right endpoint b to the collection of intervals. 
 //	Each newly inserted interval must be assigned anID. The IDs should be consecutive; that is, 
 //	the ID of the interval inserted on the ith call of this method should be i. 
 //	For example ifintervalInsertis called successively to insert intervals [5,7],[4,9],[1,8], 
@@ -10,15 +10,15 @@ public class Intervals {
 //	Keep track of the IDs, as multipleintervals that have the same endpoints on both sides can be added.
 //	intervalInsertshould run inO(logn)time.
 //	
-//	•boolean intervalDelete(int intervalID): Deletes the interval whose ID (gener-ated byintervalInsert) isintervalID. 
+//	boolean intervalDelete(int intervalID): Deletes the interval whose ID (gener-ated byintervalInsert) isintervalID. 
 //	Returns true if deletion was successful. This method should run in O(logn) time.
 //	
 //	The intervalDelete method is optional; that is, you are not required to implement it. 
 //	However, your code must provide an intervalDelete method even if you choose not to implement interval deletion. 
 //	If you do not implement deletion, the intervalDelete method should consist of just one line that returns false.
 //	
-//	•int findPOM(): Finds the endpoint that has maximum overlap and returns its value. Thismethod should run in constant time.
-//	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
+//	int findPOM(): Finds the endpoint that has maximum overlap and returns its value. Thismethod should run in constant time.
+//	RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
 	
 	//Testing
@@ -31,8 +31,11 @@ public class Intervals {
 	
 	
 	private RBTree tree;
-	private int ID = 1;
+	private int ID;
 	
+	/**
+	 * The constructor for invervals. Creates RBTree.
+	 */
 	public Intervals() {
 		tree = new RBTree();
 	}
@@ -86,13 +89,18 @@ public class Intervals {
 	 * @param node
 	 */
 	private void updateFields(Node node) {
-		getValHelper(node);
+		node.setVal(getValHelper(node.getVal(), node));
 		updateMaxVal(node);
+//		node.updateMaxVal();
 		calcEmax(node);
 		updateHeight(node);
 		
 	}
 	
+	/**
+	 * Updates the the MaxVal
+	 * @param a Node
+	 */
 	private void updateMaxVal(Node node) {
 		node.setMaxVal(Math.max(Math.max(node.leftChild.getMaxVal(), node.leftChild.getMaxVal() + node.getP()), 
 				node.leftChild.getMaxVal() + node.getP() + node.rightChild.getMaxVal()));
@@ -101,24 +109,38 @@ public class Intervals {
 			updateMaxVal(node.parent);
 	}
 	
+	/**
+	 * Updates the height of the tree
+	 * @param a Node
+	 */
 	private void updateHeight(Node node) {
-		if(node.equals(tree.getNILNode())) {
+		if(node.equals(tree.getNILNode()))
 			node.height = 0;
-			return;
-		}
 		else
 			node.height = Math.max(node.rightChild.height + 1, node.leftChild.height + 1);
 		updateHeight(node.parent);
 	}
-	// Should it be written as sum = 1 + ... instead?
-	private void getValHelper(Node current) {
-	     if(current.equals(tree.getNILNode())) {
-	    	 current.setVal(0);
-	    	 return;
-	     }
-	     current.setVal(current.leftChild.getVal() + current.getP() + current.rightChild.getVal());
+	
+	/**
+	 * A helper method for getVal. Gets the val of left child and right child
+	 * and sums with the current node
+	 */
+	private int getValHelper(int sum, Node current) {
+		 if(current.getLeft() != null) {
+			 sum = sum + current.getLeft().getVal();
+		 }
+		 
+		 if(current.getRight() != null) {
+			 sum = sum + current.getRight().getVal();
+		 }
+		 
+		 return sum;
 	}
 	
+	/**
+	 * Calculates Emax  
+	 * @param node 
+	 */
 	private void calcEmax(Node node){ // test if this works. im not sure it does
 		if(node.leftChild.equals(tree.getNILNode()) && node.rightChild.equals(tree.getNILNode())) {
 			if(node.getP() == 1)
@@ -137,6 +159,10 @@ public class Intervals {
 			calcEmax(node.parent);
 	}
 	
+	/**
+	 * Helper method for insert.
+	 * @param inserts node
+	 */
 	private void insertHelper(Node node) {
 		Node x = tree.getRoot();
 		Node y = tree.getNILNode();
@@ -179,11 +205,16 @@ public class Intervals {
 			y.rightChild = node;
 		node.leftChild = tree.getNILNode();
 		node.rightChild = tree.getNILNode();
-		node.color = 1;
+		node.color = 0;
 		insertFixup(node);
 		updateFields(node);
 	}
 	
+	/**
+	 * checks the color of each node in tree, then 
+	 * fixes the tree usually after insertion.
+	 * @param A node
+	 */
 	private void insertFixup(Node node) {
 		Node temp;
 		while(node.parent.color == 1) {
@@ -227,15 +258,19 @@ public class Intervals {
 		tree.getRoot().color = 0;
 	}
 	
+	/**
+	 * Rotates the the tree left.
+	 * @param node
+	 */
 	private void leftRotate(Node node) {
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
-		if(temp.leftChild != null)
+		if(temp.leftChild == null)
 			temp.leftChild.parent = node;
 		temp.parent = node.parent;
-		if(node.parent.equals(tree.getNILNode()))
+		if(node.parent == null)
 			tree.root = temp;
-		else if(node.equals(node.parent.leftChild))
+		else if(node == node.parent.leftChild)
 			node.parent.leftChild = temp;
 		else
 			node.parent.rightChild = temp;
@@ -243,19 +278,23 @@ public class Intervals {
 		node.parent = temp;
 	}
 	
+	/**
+	 * Rotates the tree right.
+	 * @param node
+	 */
 	private void rightRotate(Node node) {
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;
-		if(temp.rightChild != null)
+		if(temp.rightChild == null)
 			temp.rightChild.parent = node;
 		temp.parent = node.parent;
-		if(node.parent.equals(tree.getNILNode()))
+		if(node.parent == null)
 			tree.root = temp;
-		else if(node.equals(node.parent.rightChild))
+		else if(node == node.parent.rightChild)
 			node.parent.rightChild = temp;
 		else
-			node.parent.leftChild = temp;
-		temp.rightChild = node;
+			node.parent.rightChild = temp;
+		temp.leftChild = node;
 		node.parent = temp;
 	}
 }

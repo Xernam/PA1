@@ -44,14 +44,6 @@ public class IntervalTests {
 	public void insertTest1() {
 		Intervals interval = new Intervals();
 		interval.intervalInsert(0, 4);
-		assertEquals(interval.getRBTree().root.getEmax(), interval.getRBTree().root.getEndpoint());
-	}
-	
-	@Test
-	public void insertTest2() {
- 		Intervals interval = new Intervals();
- 		interval.intervalInsert(0, 4);
-		interval.intervalInsert(1, 5);
-		assertEquals(interval.getRBTree().root.getEmax(), interval.getRBTree().root.leftChild.getEndpoint());
+		assertEquals(interval.getRBTree().root.getEmax(), interval.getRBTree().root);
 	}
 }
