@@ -103,8 +103,10 @@ public class Intervals {
 	}
 	
 	private void updateHeight(Node node) {
-		if(node.equals(tree.getNILNode()))
+		if(node.equals(tree.getNILNode())) {
 			node.height = 0;
+			return;
+		}
 		else
 			node.height = Math.max(node.rightChild.height + 1, node.leftChild.height + 1);
 		updateHeight(node.parent);
@@ -233,10 +235,10 @@ public class Intervals {
 	private void leftRotate(Node node) {
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
-		if(temp.leftChild == null)
+		if(temp.leftChild.equals(tree.getNILNode()))
 			temp.leftChild.parent = node;
 		temp.parent = node.parent;
-		if(node.parent == null)
+		if(node.parent.equals(tree.getNILNode()))
 			tree.root = temp;
 		else if(node == node.parent.leftChild)
 			node.parent.leftChild = temp;
@@ -249,10 +251,10 @@ public class Intervals {
 	private void rightRotate(Node node) {
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;
-		if(temp.rightChild == null)
+		if(temp.rightChild.equals(tree.getNILNode()))
 			temp.rightChild.parent = node;
 		temp.parent = node.parent;
-		if(node.parent == null)
+		if(node.parent.equals(tree.getNILNode()))
 			tree.root = temp;
 		else if(node == node.parent.rightChild)
 			node.parent.rightChild = temp;
