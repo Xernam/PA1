@@ -22,11 +22,12 @@ public class Intervals {
 	
 	
 	//Testing
-	//maxVal
-	//emax
-	//update height in log(n)
-	//update size in log(n)
-	//update emax in log(n)
+	//Commenting and Javadoc
+	//maxVal //done?
+	//emax //done
+	//update height in log(n) //done
+	//update size in log(n) //done
+	//update emax in log(n) //done
 	
 	
 	private RBTree tree;
@@ -36,6 +37,13 @@ public class Intervals {
 		tree = new RBTree();
 	}
 	
+	/**
+	 * Insert an interval starting at a and ending at b into the RBTree. If a is less than b, then the values are swapped.
+	 * Creates 2 nodes with the current ID and an endpoint corresponding to a or b. p value is 1 if a, -1 if b
+	 * After inserting, ID is incremented, and tree.size is incremented by 2.
+	 * @param a
+	 * @param b
+	 */
 	public void intervalInsert(int a, int b) {
 		if(a < b) {
 			int temp = a;
@@ -56,14 +64,27 @@ public class Intervals {
 	public boolean intervalDelete(int intervalID) {
 		return false;
 	}
+
+	/**
+	 * returns the endpoint value where the max value exists.
+	 * @return
+	 */
 	public int findPOM() {
 		return tree.getRoot().getEmax().getValue();
 	}
 	
+	/**
+	 * returns the RBTree used
+	 * @return
+	 */
 	public RBTree getRBTree() {
 		return tree;
 	}
 	
+	/**
+	 * updates Val, MaxVal, Emax, and Height recursively
+	 * @param node
+	 */
 	private void updateFields(Node node) {
 		node.setVal(getValHelper(node.getVal(), node));
 		node.updateMaxVal();
