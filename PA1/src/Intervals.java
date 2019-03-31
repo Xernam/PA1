@@ -67,6 +67,8 @@ public class Intervals {
 	private void updateFields(Node node) {
 		node.setVal(getValHelper(node.getVal(), node));
 		node.updateMaxVal();
+		calcEmax(node);
+		
 	}
 	// Should it be written as sum = 1 + ... instead?
 	private int getValHelper(int sum, Node current) {
@@ -88,20 +90,15 @@ public class Intervals {
 			else
 				node.setEmax(tree.getNILNode().getEndpoint());
 		}
-		
-		if(node.leftChild.getEmax().getValue() > node.getVal() && node.leftChild.getP() == 1) {
+		if(node.getP() == -1)
 			node.setEmax(node.leftChild.getEmax());
-		}
-		else if(node.rightChild.getEmax().getValue() > node.getVal() && node.rightChild.getP() == 1) {
-			node.setEmax(node.rightChild.getEmax());
-		}
-		else {
+		if(node.getP() == 1 && !node.rightChild.equals(tree.getNILNode()) && node.rightChild.getP() == -1)
 			node.setEmax(node.getEndpoint());
-		}
+		if(node.getP() == 1 && !node.rightChild.equals(tree.getNILNode()) && node.rightChild.getP() == 1)
+			node.setEmax(node.rightChild.getEmax());
 		
 		if(!node.equals(tree.root))
 			calcEmax(node.parent);
-		
 	}
 	
 	private void insertHelper(Node node) {
