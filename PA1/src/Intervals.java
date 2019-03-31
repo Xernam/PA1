@@ -31,7 +31,7 @@ public class Intervals {
 	
 	
 	private RBTree tree;
-	private int ID;
+	private int ID = 1;
 	
 	public Intervals() {
 		tree = new RBTree();
@@ -86,9 +86,8 @@ public class Intervals {
 	 * @param node
 	 */
 	private void updateFields(Node node) {
-		node.setVal(getValHelper(node.getVal(), node));
+		getValHelper(node);
 		updateMaxVal(node);
-//		node.updateMaxVal();
 		calcEmax(node);
 		updateHeight(node);
 		
@@ -112,16 +111,12 @@ public class Intervals {
 		updateHeight(node.parent);
 	}
 	// Should it be written as sum = 1 + ... instead?
-	private int getValHelper(int sum, Node current) {
-		 if(current.getLeft() != null) {
-			 sum = sum + getValHelper(sum, current.getLeft());
-		 }
-		 
-		 if(current.getRight() != null) {
-			 sum = sum + getValHelper(sum, current.getRight());
-		 }
-		 
-		 return sum;
+	private void getValHelper(Node current) {
+	     if(current.equals(tree.getNILNode())) {
+	    	 current.setVal(0);
+	    	 return;
+	     }
+	     current.setVal(current.leftChild.getVal() + current.getP() + current.rightChild.getVal());
 	}
 	
 	private void calcEmax(Node node){ // test if this works. im not sure it does
@@ -184,7 +179,7 @@ public class Intervals {
 			y.rightChild = node;
 		node.leftChild = tree.getNILNode();
 		node.rightChild = tree.getNILNode();
-		node.color = 0;
+		node.color = 1;
 		insertFixup(node);
 		updateFields(node);
 	}
@@ -235,12 +230,12 @@ public class Intervals {
 	private void leftRotate(Node node) {
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
-		if(temp.leftChild.equals(tree.getNILNode()))
+		if(temp.leftChild != null)
 			temp.leftChild.parent = node;
 		temp.parent = node.parent;
 		if(node.parent.equals(tree.getNILNode()))
 			tree.root = temp;
-		else if(node == node.parent.leftChild)
+		else if(node.equals(node.parent.leftChild))
 			node.parent.leftChild = temp;
 		else
 			node.parent.rightChild = temp;
@@ -251,16 +246,16 @@ public class Intervals {
 	private void rightRotate(Node node) {
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;
-		if(temp.rightChild.equals(tree.getNILNode()))
+		if(temp.rightChild != null)
 			temp.rightChild.parent = node;
 		temp.parent = node.parent;
 		if(node.parent.equals(tree.getNILNode()))
 			tree.root = temp;
-		else if(node == node.parent.rightChild)
+		else if(node.equals(node.parent.rightChild))
 			node.parent.rightChild = temp;
 		else
-			node.parent.rightChild = temp;
-		temp.leftChild = node;
+			node.parent.leftChild = temp;
+		temp.rightChild = node;
 		node.parent = temp;
 	}
 }

@@ -28,9 +28,9 @@ public class Node {
 	
 	
 	public Node(int Id, Endpoint temp) {
-		parent = null;
-		leftChild = null;
-		rightChild = null;
+		parent = this;
+		leftChild = this;
+		rightChild = this;
 		color = 0;
 		key = temp;
 		p = 0;
