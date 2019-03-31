@@ -7,7 +7,7 @@ public class IntervalTests {
 	//Testing value should be the sum of the values of right child, left child, and current node's p value
 	//MaxVal should be the highest sum of p values in the tree
 	//emax should be the node at the start of the "max value chain"
-	//		this means that if a node has a MaxVal of 3, then both left and right child have a value of 1.
+	//		this means that if a node has a MaxVal of 3 and p value is 1, then both left and right child have a value of 1.
 	//		Since this is sorted like a binary search tree, the greatest of the keys lie in the right child.
 	//		Therefore, emax is in the right child of the current node.
 	
