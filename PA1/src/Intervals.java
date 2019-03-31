@@ -45,7 +45,7 @@ public class Intervals {
 	 * @param b
 	 */
 	public void intervalInsert(int a, int b) {
-		if(a < b) {
+		if(a > b) {
 			int temp = a;
 			a = b;
 			b = temp;

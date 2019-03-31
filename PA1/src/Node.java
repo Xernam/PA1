@@ -110,8 +110,7 @@ public class Node {
 	//Given a node with an updated maxval, recursively updates the parent nodes' maxval
 	public void updateMaxValParent() {
 		//Base case
-		if(this.getParent()==null) {
-
+		if(this.getParent().getP() == 0) {
 		}
 		//Node is a leftChild
 		else if(this.parent.rightChild.equals(this)) {
@@ -133,7 +132,7 @@ public class Node {
 		//Recursive call
 		
 		//Parent of node is a right child
-		if(this.getParent().getParent().getRight().equals(this.getParent())) {
+		if(this.getParent().getParent().getRight().equals(this.getParent())) { //throws a nullpointer. Maybe move to intervals to have access to getNILNode.
 			this.getParent().updateMaxValParent();
 		}
 		//Parent of node is a left child
