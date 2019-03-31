@@ -51,6 +51,7 @@ public class Intervals {
 		
 		
 		ID++;
+		tree.incrementSize();
 	}
 	public boolean intervalDelete(int intervalID) {
 		return false;
@@ -66,6 +67,8 @@ public class Intervals {
 	private void updateFields(Node node) {
 		node.setVal(getValHelper(node.getVal(), node));
 		node.updateMaxVal();
+		calcEmax(node);
+		
 	}
 	// Should it be written as sum = 1 + ... instead?
 	private int getValHelper(int sum, Node current) {
@@ -78,6 +81,24 @@ public class Intervals {
 		 }
 		 
 		 return sum;
+	}
+	
+	private void calcEmax(Node node){ // test if this works. im not sure it does
+		if(node.leftChild.equals(tree.getNILNode()) && node.rightChild.equals(tree.getNILNode())) {
+			if(node.getP() == 1)
+				node.setEmax(node.getEndpoint());
+			else
+				node.setEmax(tree.getNILNode().getEndpoint());
+		}
+		if(node.getP() == -1)
+			node.setEmax(node.leftChild.getEmax());
+		if(node.getP() == 1 && !node.rightChild.equals(tree.getNILNode()) && node.rightChild.getP() == -1)
+			node.setEmax(node.getEndpoint());
+		if(node.getP() == 1 && !node.rightChild.equals(tree.getNILNode()) && node.rightChild.getP() == 1)
+			node.setEmax(node.rightChild.getEmax());
+		
+		if(!node.equals(tree.root))
+			calcEmax(node.parent);
 	}
 	
 	private void insertHelper(Node node) {
@@ -93,9 +114,7 @@ public class Intervals {
 		}
 		node.parent = y;
 		if(y == tree.getNILNode()) {
-			Node temp = tree.getRoot();
-			temp = node;
-			tree.setRoot(node);
+			tree.root = node;
 			node.leftChild = tree.getNILNode();
 			node.rightChild = tree.getNILNode();
 			node.parent = tree.getNILNode();
@@ -155,14 +174,13 @@ public class Intervals {
 	}
 	
 	private void leftRotate(Node node) {
-		Node root = tree.getRoot();
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
 		if(temp.leftChild == null)
 			temp.leftChild.parent = node;
 		temp.parent = node.parent;
 		if(node.parent == null)
-			root = temp;
+			tree.root = temp;
 		else if(node == node.parent.leftChild)
 			node.parent.leftChild = temp;
 		else
@@ -172,14 +190,13 @@ public class Intervals {
 	}
 	
 	private void rightRotate(Node node) {
-		Node root = tree.getRoot();
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;
 		if(temp.rightChild == null)
 			temp.rightChild.parent = node;
 		temp.parent = node.parent;
 		if(node.parent == null)
-			root = temp;
+			tree.root = temp;
 		else if(node == node.parent.rightChild)
 			node.parent.rightChild = temp;
 		else

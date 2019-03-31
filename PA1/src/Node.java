@@ -62,12 +62,9 @@ public class Node {
 		val = value;
 	}
 	
-	//I think this is a valid solution to the problem. Definetly not the most 
-	// effecient way to do it, but I think it's right. Logan: Moving to insert
 	public int getVal() {
 		return val;
 	}
-	
 	
 	public int getMaxVal() {
 		return maxval;
@@ -76,8 +73,12 @@ public class Node {
 		return key;
 	}
 	public Endpoint getEmax() {
-		return null;
+		return emax;
 	}
+	public void setEmax(Endpoint endpoint) {
+		emax = endpoint;
+	}
+	
 	public int getColor() {
 		return this.color;
 	}
