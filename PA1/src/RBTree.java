@@ -30,5 +30,7 @@ public class RBTree {
 	public int getHeight() {
 		return height;
 	}
-	
+	public void setRoot(Node node) {
+		this.root=node;
+	}
 }
