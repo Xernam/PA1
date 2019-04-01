@@ -1,5 +1,9 @@
+/**
+ * 
+ * @author Logan Williams, Durga Darba, Josiah Weeks
+ *
+ */
 import java.lang.Math;
-
 
 public class Intervals {
 //	•Intervals(): Constructor with no parameters.

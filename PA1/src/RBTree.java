@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Logan Williams, Durga Darba, Josiah Weeks
+ *
+ */
+
 
 public class RBTree {
 	

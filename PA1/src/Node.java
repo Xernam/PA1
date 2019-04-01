@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Logan Williams, Durga Darba, Josiah Weeks
+ *
+ */
 
 public class Node {
 //	Node getParent(): Returns the parent of this node.

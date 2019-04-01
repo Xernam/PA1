@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Logan Williams, Durga Darba, Josiah Weeks
+ *
+ */
 
 public class Endpoint {
 //	•int getValue(): Returns the endpoint value.  
