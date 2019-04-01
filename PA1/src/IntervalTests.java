@@ -53,5 +53,7 @@ public class IntervalTests {
  		interval.intervalInsert(0, 4);
 		interval.intervalInsert(1, 5);
 		assertEquals(interval.getRBTree().root.getEmax(), interval.getRBTree().root.leftChild.getEndpoint());
+		assertEquals(interval.getRBTree().root.parent, interval.getRBTree().NIL);
 	}
+	
 }

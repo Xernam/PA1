@@ -5,9 +5,17 @@ public class Endpoint {
 	
 	private int value;
 	
+	/**
+	 * @param int value The value at endpoint
+	 */
 	public Endpoint(int value) {
 		this.value = value;
 	}
+	
+	/**
+	 * gets value of endpoint.
+	 * @return int of the value
+	 */
 	public int getValue() {
 		return value;
 	}

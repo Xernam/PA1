@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 
 public class Intervals {
 //	•Intervals(): Constructor with no parameters.
@@ -20,19 +22,13 @@ public class Intervals {
 //	•int findPOM(): Finds the endpoint that has maximum overlap and returns its value. Thismethod should run in constant time.
 //	•RBTree getRBTree(): Returns the red-black tree used, which is an object of typeRBTree.
 	
-	
-	//Testing
-	//Commenting and Javadoc
-	//maxVal //done?
-	//emax //done
-	//update height in log(n) //done
-	//update size in log(n) //done
-	//update emax in log(n) //done
-	
-	
 	private RBTree tree;
 	private int ID = 1;
 	
+	
+	/**
+	 * The constructor for invervals. Creates RBTree.
+	 */
 	public Intervals() {
 		tree = new RBTree();
 	}
@@ -93,6 +89,11 @@ public class Intervals {
 		
 	}
 	
+
+	/**
+	 * Updates the the MaxVal
+	 * @param a Node
+	 */
 	private void updateMaxVal(Node node) {
 		node.setMaxVal(Math.max(Math.max(node.leftChild.getMaxVal(), node.leftChild.getMaxVal() + node.getP()), 
 				node.leftChild.getMaxVal() + node.getP() + node.rightChild.getMaxVal()));
@@ -101,6 +102,10 @@ public class Intervals {
 			updateMaxVal(node.parent);
 	}
 	
+	/**
+	 * Updates the height of the tree
+	 * @param a Node
+	 */
 	private void updateHeight(Node node) {
 		if(node.equals(tree.getNILNode())) {
 			node.height = 0;
@@ -110,16 +115,25 @@ public class Intervals {
 			node.height = Math.max(node.rightChild.height + 1, node.leftChild.height + 1);
 		updateHeight(node.parent);
 	}
-	// Should it be written as sum = 1 + ... instead?
+	
+	/**
+	 * A helper method for getVal. Gets the val of left child and right child
+	 * and sums with the current node
+	 */
 	private void getValHelper(Node current) {
 	     if(current.equals(tree.getNILNode())) {
 	    	 current.setVal(0);
 	    	 return;
 	     }
 	     current.setVal(current.leftChild.getVal() + current.getP() + current.rightChild.getVal());
+	     getValHelper(current.parent);
 	}
 	
-	private void calcEmax(Node node){ // test if this works. im not sure it does
+	/**
+	 * Calculates Emax  
+	 * @param node 
+	 */
+	private void calcEmax(Node node){
 		if(node.leftChild.equals(tree.getNILNode()) && node.rightChild.equals(tree.getNILNode())) {
 			if(node.getP() == 1)
 				node.setEmax(node.getEndpoint());
@@ -137,6 +151,11 @@ public class Intervals {
 			calcEmax(node.parent);
 	}
 	
+	
+	/**
+	 * Helper method for insert. Does the insertion into the tree, and is used to save code in Insert
+	 * @param node - node to be inserted
+	 */
 	private void insertHelper(Node node) {
 		Node x = tree.getRoot();
 		Node y = tree.getNILNode();
@@ -184,6 +203,12 @@ public class Intervals {
 		updateFields(node);
 	}
 	
+	
+	/**
+	 * checks the color of each node in tree, then 
+	 * fixes the tree after insertion.
+	 * @param node - the node to be fixed up
+	 */
 	private void insertFixup(Node node) {
 		Node temp;
 		while(node.parent.color == 1) {
@@ -227,6 +252,10 @@ public class Intervals {
 		tree.getRoot().color = 0;
 	}
 	
+	/**
+	 * Rotates a node to the left.
+	 * @param node
+	 */
 	private void leftRotate(Node node) {
 		Node temp = node.leftChild;
 		node.rightChild = temp.leftChild;
@@ -243,6 +272,10 @@ public class Intervals {
 		node.parent = temp;
 	}
 	
+	/**
+	 * Rotates a node to the right.
+	 * @param node
+	 */
 	private void rightRotate(Node node) {
 		Node temp = node.rightChild;
 		node.leftChild = temp.rightChild;

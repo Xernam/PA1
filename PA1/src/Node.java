@@ -1,5 +1,3 @@
-import java.lang.Math;
-
 
 public class Node {
 //	Node getParent(): Returns the parent of this node.
@@ -23,10 +21,13 @@ public class Node {
 	private int maxval;
 	private Endpoint emax;
 	private int ID;
-	private int size;
 	int height;
 	
 	
+	/**
+	 * Constructor for the Node object
+	 * @param int id and Endpoint temp
+	 */
 	public Node(int Id, Endpoint temp) {
 		parent = this;
 		leftChild = this;
@@ -40,112 +41,133 @@ public class Node {
 		ID = Id;
 		height = 0;
 	}
+	
+	/**
+	 * Gets the parent
+	 * @return parent Node
+	 */
 	public Node getParent() {
 		return this.parent;
 	}
+	
+	/**
+	 * Gets left child
+	 * @return left child Node
+	 */
 	public Node getLeft() {
 		return this.leftChild;
 	}
+	
+	/**
+	 * Gets right child
+	 * @return right child Node
+	 */
 	public Node getRight() {
 		return this.rightChild;
 	}
+	
+	/**
+	 * Gets the key of the current node
+	 * @return int key
+	 */
 	public int getKey() {
 		return key.getValue();
 	}
+	
+	/**
+	 * Gets P of the current node
+	 * @return int p
+	 */
 	public int getP() {
 		return p;
 	}
 	
+	/**
+	 * Sets P
+	 * @param pval int
+	 */
 	public void setP(int pval) {
 		p = pval;
 	}
 	
+	/**
+	 * Sets the value of the node
+	 * @param int value
+	 */
 	public void setVal(int value) {
 		val = value;
 	}
 	
+	/**
+	 * Gets the value of the node
+	 * @return int value
+	 */
 	public int getVal() {
 		return val;
 	}
 	
+	/**
+	 * get the maxVal of the current node
+	 * @return int max val
+	 */
+
 	public int getMaxVal() {
 		return maxval;
 	}
 	
+	/**
+	 * Sets the maxVal of the current node
+	 * @param int val
+	 */
 	public void setMaxVal(int val) {
 		maxval = val;
 	}
+	
+	/**
+	 * gets the endpoint of the current node
+	 * @return Endpoint 
+	 */
 	public Endpoint getEndpoint() {
 		return key;
 	}
+	
+	/**
+	 * gets the endpoint that has the maximum overlap
+	 * @return Endpoint 
+	 */
 	public Endpoint getEmax() {
 		return emax;
 	}
+	
+	/**
+	 * Set the endpoint that has maximum overlap
+	 * @param Endpoint object
+	 */
 	public void setEmax(Endpoint endpoint) {
 		emax = endpoint;
 	}
 	
+	/**
+	 * Gets color of node
+	 * @return int of color
+	 */
 	public int getColor() {
 		return this.color;
 	}
 	
-	public int getSize() {
-		return this.size;
-	}
-	
+	/**
+	 * gets the ID of the current node
+	 * @return gives the int value
+	 */
 	public int getID() {
 		return this.ID;
 	}
-
-	//move to insert, make it recursive
-	public int updateMaxVal() {
-		if(this.ID==0) {
-			this.setP(0);
-		}
-		else {
-			this.setP(Math.max(Math.max(this.leftChild.updateMaxVal(), this.leftChild.updateMaxVal() + this.getP()), 
-					this.leftChild.updateMaxVal() + this.getP() + this.rightChild.updateMaxVal()));
-		}
-		updateMaxValParent();
-		return this.getP();
-	}
 	
-	
-	//Given a node with an updated maxval, recursively updates the parent nodes' maxval
-	public void updateMaxValParent() {
-		//Base case
-		if(this.getParent().getP() == 0) {
-			return;
-		}
-		//Node is a leftChild
-		else if(this.parent.rightChild.equals(this)) {
-			this.getParent().setP
-			(Math.max(
-					Math.max(this.getMaxVal(), 
-					this.getMaxVal() + this.getParent().getP()), 
-					this.getMaxVal() + this.getParent().getP() + this.getParent().getRight().getMaxVal()));
-		}
-		//Node is RightChild
-		else {
-			this.getParent().setP
-			(Math.max(
-					Math.max(this.getParent().getLeft().getMaxVal(), 
-							this.getParent().getLeft().getMaxVal() + this.getParent().getP()), 
-							this.getParent().getLeft().getMaxVal() + this.getParent().getP() + this.getMaxVal()));
-		}
-		
-		//Recursive call
-		
-		//Parent of node is a right child
-		if(this.getParent().getParent().getRight().equals(this.getParent())) { //throws a nullpointer. Maybe move to intervals to have access to getNILNode.
-			this.getParent().updateMaxValParent();
-		}
-		//Parent of node is a left child
-		else {
-			this.getParent().updateMaxValParent();
-		}
-	}
-	
+	/**
+	 * Checks to see if nodes equal this node. Compares ID and P. 
+	 * @param Node to compare to
+	 * @return boolean 
+	 */
 	public boolean equals(Node b) {
 		if((this.getID() == b.getID()) && this.getP() == b.getP())
 			return true;
